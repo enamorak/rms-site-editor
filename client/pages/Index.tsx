@@ -93,9 +93,11 @@ function RoadPoint3D({
 function RoadSegment3D({
   segment,
   points,
+  fleetColors,
 }: {
   segment: RoadSegment;
   points: RoadPoint[];
+  fleetColors: string[];
 }) {
   const startPoint = points.find((p) => p.id === segment.start);
   const endPoint = points.find((p) => p.id === segment.end);
