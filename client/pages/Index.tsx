@@ -688,7 +688,37 @@ export default function Index() {
                   onClick={clearAll}
                   className="text-xs"
                 >
-                  Clear All
+                  <RotateCcw className="w-3 h-3 mr-1" />
+                  Clear
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-3 gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={undo}
+                  disabled={historyIndex <= 0}
+                  className="text-xs"
+                >
+                  <Undo2 className="w-3 h-3" />
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={redo}
+                  disabled={historyIndex >= history.length - 1}
+                  className="text-xs"
+                >
+                  <Redo2 className="w-3 h-3" />
+                </Button>
+                <Button
+                  size="sm"
+                  variant={hasUnsavedChanges ? "default" : "outline"}
+                  onClick={saveToLocalStorage}
+                  className="text-xs"
+                >
+                  <Save className="w-3 h-3" />
                 </Button>
               </div>
             </CardContent>
