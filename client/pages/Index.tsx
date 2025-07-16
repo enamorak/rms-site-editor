@@ -199,6 +199,11 @@ function Scene({
   );
 }
 
+interface EditorState {
+  points: RoadPoint[];
+  segments: RoadSegment[];
+}
+
 export default function Index() {
   const [points, setPoints] = useState<RoadPoint[]>([]);
   const [segments, setSegments] = useState<RoadSegment[]>([]);
