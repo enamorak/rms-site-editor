@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import {
   Download,
   Upload,
@@ -866,7 +867,7 @@ export default function Index() {
         <div className="absolute top-4 right-4 bg-card border rounded-lg p-4 max-w-xs">
           <h3 className="font-semibold text-sm mb-2">How to Use</h3>
           <ul className="text-xs text-muted-foreground space-y-1">
-            <li>• Select a tool from the left panel</li>
+            <li>�� Select a tool from the left panel</li>
             <li>• Click on the grid to place points</li>
             <li>• Click two points to connect them</li>
             <li>• Export to .building.yaml for RMF</li>
