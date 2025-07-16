@@ -17,6 +17,10 @@ import {
   Route,
   Zap,
   ParkingCircle,
+  Undo2,
+  Redo2,
+  Save,
+  RotateCcw,
 } from "lucide-react";
 import { Building, Vertex, Wall, Lane, Door } from "@shared/rmf-types";
 
