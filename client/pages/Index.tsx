@@ -336,14 +336,18 @@ export default function Index() {
             type: selectedTool as "lane" | "wall" | "door",
             graphIndex: selectedTool === "lane" ? 0 : undefined,
           };
-          setSegments((prev) => [...prev, newSegment]);
+          setSegments((prev) => {
+            const newSegments = [...prev, newSegment];
+            pushToHistory({ points, segments: newSegments });
+            return newSegments;
+          });
           setConnectingFrom(null);
         }
       } else {
         setSelectedPoint(pointId);
       }
     },
-    [selectedTool, connectingFrom],
+    [selectedTool, connectingFrom, points, pushToHistory],
   );
 
   const deleteSelected = useCallback(() => {
