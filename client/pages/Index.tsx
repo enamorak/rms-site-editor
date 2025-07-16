@@ -600,9 +600,15 @@ export default function Index() {
                 <Download className="w-4 h-4 mr-2" />
                 {isExporting ? "Exporting..." : "Export YAML"}
               </Button>
-              <Button size="sm" variant="outline" className="w-full">
+              <Button
+                size="sm"
+                variant="outline"
+                className="w-full"
+                onClick={importMap}
+                disabled={isImporting}
+              >
                 <Upload className="w-4 h-4 mr-2" />
-                Import Map
+                {isImporting ? "Importing..." : "Import Map"}
               </Button>
             </CardContent>
           </Card>
