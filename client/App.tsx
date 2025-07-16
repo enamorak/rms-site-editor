@@ -17,6 +17,7 @@ import Robots from "./pages/Robots";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import { Button } from "@/components/ui/button";
+import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { Robot, MapPin, BarChart3 } from "lucide-react";
 
 const queryClient = new QueryClient();
