@@ -216,6 +216,13 @@ export default function Index() {
   const [isImporting, setIsImporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // History management for undo/redo
+  const [history, setHistory] = useState<EditorState[]>([
+    { points: [], segments: [] },
+  ]);
+  const [historyIndex, setHistoryIndex] = useState(0);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+
   const addPoint = useCallback(
     (position: [number, number, number]) => {
       if (["waypoint", "charging", "parking"].includes(selectedTool)) {
