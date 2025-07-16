@@ -36,6 +36,16 @@ function NavBar() {
 
         <div className="flex items-center gap-2">
           <Button
+            variant={isActive("/dashboard") ? "default" : "ghost"}
+            asChild
+            size="sm"
+          >
+            <Link to="/dashboard">
+              <BarChart3 className="w-4 h-4 mr-2" />
+              Dashboard
+            </Link>
+          </Button>
+          <Button
             variant={isActive("/") ? "default" : "ghost"}
             asChild
             size="sm"
