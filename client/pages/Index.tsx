@@ -352,15 +352,16 @@ export default function Index() {
 
   const deleteSelected = useCallback(() => {
     if (selectedPoint) {
-      setPoints((prev) => prev.filter((p) => p.id !== selectedPoint));
-      setSegments((prev) =>
-        prev.filter(
-          (s) => s.start !== selectedPoint && s.end !== selectedPoint,
-        ),
+      const newPoints = points.filter((p) => p.id !== selectedPoint);
+      const newSegments = segments.filter(
+        (s) => s.start !== selectedPoint && s.end !== selectedPoint,
       );
+      pushToHistory({ points: newPoints, segments: newSegments });
+      setPoints(newPoints);
+      setSegments(newSegments);
       setSelectedPoint(null);
     }
-  }, [selectedPoint]);
+  }, [selectedPoint, points, segments, pushToHistory]);
 
   const clearAll = useCallback(() => {
     setPoints([]);
