@@ -14,9 +14,10 @@ import {
 } from "react-router-dom";
 import Index from "./pages/Index";
 import Robots from "./pages/Robots";
+import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import { Button } from "@/components/ui/button";
-import { Robot, MapPin, Menu } from "lucide-react";
+import { Robot, MapPin, BarChart3 } from "lucide-react";
 
 const queryClient = new QueryClient();
 
