@@ -263,6 +263,117 @@ export default function Index() {
     setConnectingFrom(null);
   }, []);
 
+  const importMap = useCallback(async () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".yaml,.yml,.json";
+    input.onchange = async (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+
+      setIsImporting(true);
+      setError(null);
+
+      try {
+        const text = await file.text();
+        const format = file.name.endsWith(".json") ? "json" : "yaml";
+
+        const response = await fetch("/api/import-map", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ data: text, format }),
+        });
+
+        const result = await response.json();
+
+        if (result.success && result.building) {
+          // Convert building back to our internal format
+          const building = result.building;
+          const level = building.levels.L1 || Object.values(building.levels)[0];
+
+          if (level) {
+            // Clear existing data
+            setPoints([]);
+            setSegments([]);
+            setSelectedPoint(null);
+            setConnectingFrom(null);
+
+            // Convert vertices to points
+            const newPoints: RoadPoint[] = level.vertices.map(
+              (vertex, index) => ({
+                id: vertex.name || `imported-point-${index}`,
+                position: [vertex.x, vertex.y, vertex.z] as [
+                  number,
+                  number,
+                  number,
+                ],
+                type: vertex.params?.is_charger
+                  ? "charging"
+                  : vertex.params?.is_parking_spot
+                    ? "parking"
+                    : "waypoint",
+              }),
+            );
+
+            // Convert walls, doors, and lanes to segments
+            const newSegments: RoadSegment[] = [];
+
+            level.walls.forEach((wall, index) => {
+              const startPoint = newPoints[wall.startVertexIndex];
+              const endPoint = newPoints[wall.endVertexIndex];
+              if (startPoint && endPoint) {
+                newSegments.push({
+                  id: `imported-wall-${index}`,
+                  start: startPoint.id,
+                  end: endPoint.id,
+                  type: "wall",
+                });
+              }
+            });
+
+            level.doors.forEach((door, index) => {
+              const startPoint = newPoints[door.startVertexIndex];
+              const endPoint = newPoints[door.endVertexIndex];
+              if (startPoint && endPoint) {
+                newSegments.push({
+                  id: `imported-door-${index}`,
+                  start: startPoint.id,
+                  end: endPoint.id,
+                  type: "door",
+                });
+              }
+            });
+
+            level.lanes.forEach((lane, index) => {
+              const startPoint = newPoints[lane.startVertexIndex];
+              const endPoint = newPoints[lane.endVertexIndex];
+              if (startPoint && endPoint) {
+                newSegments.push({
+                  id: `imported-lane-${index}`,
+                  start: startPoint.id,
+                  end: endPoint.id,
+                  type: "lane",
+                  graphIndex: lane.graphIndex,
+                });
+              }
+            });
+
+            setPoints(newPoints);
+            setSegments(newSegments);
+          }
+        } else {
+          setError(result.error || "Failed to import map");
+        }
+      } catch (error) {
+        console.error("Import failed:", error);
+        setError("Failed to import map file");
+      } finally {
+        setIsImporting(false);
+      }
+    };
+    input.click();
+  }, []);
+
   const exportMap = useCallback(async () => {
     setIsExporting(true);
     try {
