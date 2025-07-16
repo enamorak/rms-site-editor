@@ -223,6 +223,88 @@ export default function Index() {
   const [historyIndex, setHistoryIndex] = useState(0);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
+  // Load from localStorage on mount
+  useEffect(() => {
+    const savedState = localStorage.getItem("rmf-editor-state");
+    if (savedState) {
+      try {
+        const { points: savedPoints, segments: savedSegments } =
+          JSON.parse(savedState);
+        setPoints(savedPoints || []);
+        setSegments(savedSegments || []);
+        setHistory([
+          { points: savedPoints || [], segments: savedSegments || [] },
+        ]);
+      } catch (error) {
+        console.error("Failed to load saved state:", error);
+      }
+    }
+  }, []);
+
+  // Auto-save to localStorage
+  useEffect(() => {
+    if (points.length > 0 || segments.length > 0) {
+      const timeoutId = setTimeout(() => {
+        localStorage.setItem(
+          "rmf-editor-state",
+          JSON.stringify({ points, segments }),
+        );
+        setHasUnsavedChanges(false);
+      }, 1000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [points, segments]);
+
+  // Add state to history
+  const pushToHistory = useCallback(
+    (newState: EditorState) => {
+      setHistory((prev) => {
+        const newHistory = prev.slice(0, historyIndex + 1);
+        newHistory.push(newState);
+        // Keep only last 50 states to prevent memory issues
+        return newHistory.slice(-50);
+      });
+      setHistoryIndex((prev) => Math.min(prev + 1, 49));
+      setHasUnsavedChanges(true);
+    },
+    [historyIndex],
+  );
+
+  // Undo function
+  const undo = useCallback(() => {
+    if (historyIndex > 0) {
+      const newIndex = historyIndex - 1;
+      const prevState = history[newIndex];
+      setPoints(prevState.points);
+      setSegments(prevState.segments);
+      setHistoryIndex(newIndex);
+      setSelectedPoint(null);
+      setConnectingFrom(null);
+    }
+  }, [history, historyIndex]);
+
+  // Redo function
+  const redo = useCallback(() => {
+    if (historyIndex < history.length - 1) {
+      const newIndex = historyIndex + 1;
+      const nextState = history[newIndex];
+      setPoints(nextState.points);
+      setSegments(nextState.segments);
+      setHistoryIndex(newIndex);
+      setSelectedPoint(null);
+      setConnectingFrom(null);
+    }
+  }, [history, historyIndex]);
+
+  // Manual save
+  const saveToLocalStorage = useCallback(() => {
+    localStorage.setItem(
+      "rmf-editor-state",
+      JSON.stringify({ points, segments }),
+    );
+    setHasUnsavedChanges(false);
+  }, [points, segments]);
+
   const addPoint = useCallback(
     (position: [number, number, number]) => {
       if (["waypoint", "charging", "parking"].includes(selectedTool)) {
