@@ -313,10 +313,14 @@ export default function Index() {
           position,
           type: selectedTool as "waypoint" | "charging" | "parking",
         };
-        setPoints((prev) => [...prev, newPoint]);
+        setPoints((prev) => {
+          const newPoints = [...prev, newPoint];
+          pushToHistory({ points: newPoints, segments });
+          return newPoints;
+        });
       }
     },
-    [selectedTool],
+    [selectedTool, segments, pushToHistory],
   );
 
   const connectPoints = useCallback(
