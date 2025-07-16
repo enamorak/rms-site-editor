@@ -294,6 +294,14 @@ export default function Index() {
     }
   }, [points, segments]);
 
+  // Simulate scene loading for 3D components
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsSceneLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Add state to history
   const pushToHistory = useCallback(
     (newState: EditorState) => {
