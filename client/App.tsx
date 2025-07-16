@@ -5,9 +5,18 @@ import { createRoot } from "react-dom/client";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import Index from "./pages/Index";
+import Robots from "./pages/Robots";
 import NotFound from "./pages/NotFound";
+import { Button } from "@/components/ui/button";
+import { Robot, MapPin, Menu } from "lucide-react";
 
 const queryClient = new QueryClient();
 
