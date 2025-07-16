@@ -376,6 +376,7 @@ export default function Index() {
 
   const exportMap = useCallback(async () => {
     setIsExporting(true);
+    setError(null);
     try {
       // Convert current scene to Building format
       const vertices: Vertex[] = points.map((point, index) => ({
