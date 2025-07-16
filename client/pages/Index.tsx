@@ -364,11 +364,12 @@ export default function Index() {
   }, [selectedPoint, points, segments, pushToHistory]);
 
   const clearAll = useCallback(() => {
+    pushToHistory({ points: [], segments: [] });
     setPoints([]);
     setSegments([]);
     setSelectedPoint(null);
     setConnectingFrom(null);
-  }, []);
+  }, [pushToHistory]);
 
   const importMap = useCallback(async () => {
     const input = document.createElement("input");
