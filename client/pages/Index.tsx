@@ -227,6 +227,7 @@ export default function Index() {
   const [isExporting, setIsExporting] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isSceneLoading, setIsSceneLoading] = useState(true);
 
   // History management for undo/redo
   const [history, setHistory] = useState<EditorState[]>([
@@ -867,7 +868,7 @@ export default function Index() {
         <div className="absolute top-4 right-4 bg-card border rounded-lg p-4 max-w-xs">
           <h3 className="font-semibold text-sm mb-2">How to Use</h3>
           <ul className="text-xs text-muted-foreground space-y-1">
-            <li>�� Select a tool from the left panel</li>
+            <li>• Select a tool from the left panel</li>
             <li>• Click on the grid to place points</li>
             <li>• Click two points to connect them</li>
             <li>• Export to .building.yaml for RMF</li>
