@@ -139,12 +139,14 @@ function Scene({
   selectedPoint,
   onPointClick,
   onSceneClick,
+  fleetColors,
 }: {
   points: RoadPoint[];
   segments: RoadSegment[];
   selectedPoint: string | null;
   onPointClick: (pointId: string) => void;
   onSceneClick: (position: [number, number, number]) => void;
+  fleetColors: string[];
 }) {
   const handleSceneClick = useCallback(
     (event: ThreeEvent<MouseEvent>) => {
