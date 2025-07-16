@@ -189,7 +189,12 @@ function Scene({
       ))}
 
       {segments.map((segment) => (
-        <RoadSegment3D key={segment.id} segment={segment} points={points} />
+        <RoadSegment3D
+          key={segment.id}
+          segment={segment}
+          points={points}
+          fleetColors={fleetColors}
+        />
       ))}
 
       <Text
