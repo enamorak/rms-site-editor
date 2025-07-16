@@ -830,7 +830,11 @@ export default function Index() {
                 onClick={importMap}
                 disabled={isImporting}
               >
-                <Upload className="w-4 h-4 mr-2" />
+                {isImporting ? (
+                  <LoadingSpinner size="sm" className="mr-2" />
+                ) : (
+                  <Upload className="w-4 h-4 mr-2" />
+                )}
                 {isImporting ? "Importing..." : "Import Map"}
               </Button>
             </CardContent>
