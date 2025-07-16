@@ -816,7 +816,11 @@ export default function Index() {
                 disabled={isExporting || points.length === 0}
                 className="w-full"
               >
-                <Download className="w-4 h-4 mr-2" />
+                {isExporting ? (
+                  <LoadingSpinner size="sm" className="mr-2" />
+                ) : (
+                  <Download className="w-4 h-4 mr-2" />
+                )}
                 {isExporting ? "Exporting..." : "Export YAML"}
               </Button>
               <Button
