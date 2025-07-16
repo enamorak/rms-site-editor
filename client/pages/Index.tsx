@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import { Canvas, useFrame, ThreeEvent } from "@react-three/fiber";
 import { OrbitControls, Grid, Text, Html } from "@react-three/drei";
 import { Vector3, BufferGeometry, Line, LineBasicMaterial } from "three";
