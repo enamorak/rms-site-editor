@@ -109,7 +109,9 @@ function RoadSegment3D({
       ? "#ef4444"
       : segment.type === "door"
         ? "#f59e0b"
-        : "#06b6d4";
+        : segment.type === "lane" && segment.graphIndex !== undefined
+          ? fleetColors[segment.graphIndex] || "#06b6d4"
+          : "#06b6d4";
 
   return (
     <line>
