@@ -19,5 +19,9 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
+  // RMF Map API routes
+  app.post("/api/export-map", handleExportMap);
+  app.post("/api/import-map", handleImportMap);
+
   return app;
 }
