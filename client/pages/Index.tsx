@@ -818,6 +818,7 @@ export default function Index() {
             selectedPoint={selectedPoint}
             onPointClick={connectPoints}
             onSceneClick={addPoint}
+            fleetColors={fleetColors}
           />
           <OrbitControls
             enablePan={true}
