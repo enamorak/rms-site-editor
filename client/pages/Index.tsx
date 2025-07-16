@@ -222,6 +222,32 @@ export default function Index() {
   ]);
   const [historyIndex, setHistoryIndex] = useState(0);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [selectedFleet, setSelectedFleet] = useState(0); // 0-8 for different fleets
+
+  // Fleet colors for different robot types
+  const fleetColors = [
+    "#06b6d4", // Cyan - Default
+    "#10b981", // Emerald
+    "#f59e0b", // Amber
+    "#ef4444", // Red
+    "#8b5cf6", // Violet
+    "#ec4899", // Pink
+    "#14b8a6", // Teal
+    "#f97316", // Orange
+    "#6366f1", // Indigo
+  ];
+
+  const fleetNames = [
+    "Delivery Fleet",
+    "Cleaning Fleet",
+    "Security Fleet",
+    "Medical Fleet",
+    "Maintenance Fleet",
+    "Transport Fleet",
+    "Inspection Fleet",
+    "Emergency Fleet",
+    "General Fleet",
+  ];
 
   // Load from localStorage on mount
   useEffect(() => {
