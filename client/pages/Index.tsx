@@ -335,7 +335,7 @@ export default function Index() {
   }, [points, segments]);
 
   return (
-    <div className="h-screen w-full flex bg-background">
+    <div className="h-[calc(100vh-4rem)] w-full flex bg-background">
       {/* Toolbar */}
       <div className="w-80 bg-card border-r flex flex-col">
         <div className="p-4 border-b">
