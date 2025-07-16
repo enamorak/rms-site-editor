@@ -855,6 +855,11 @@ export default function Index() {
 
       {/* 3D Canvas */}
       <div className="flex-1 relative">
+        {isSceneLoading && (
+          <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-10">
+            <LoadingSpinner size="lg" text="Loading 3D Scene..." />
+          </div>
+        )}
         <Canvas camera={{ position: [10, 10, 10], fov: 60 }}>
           <Scene
             points={points}
