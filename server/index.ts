@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
+import { handleExportMap } from "./routes/export-map";
+import { handleImportMap } from "./routes/import-map";
 
 export function createServer() {
   const app = express();
