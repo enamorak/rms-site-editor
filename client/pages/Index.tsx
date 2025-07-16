@@ -440,9 +440,12 @@ export default function Index() {
         a.download = "building.yaml";
         a.click();
         URL.revokeObjectURL(url);
+      } else {
+        setError("Failed to export map");
       }
     } catch (error) {
       console.error("Export failed:", error);
+      setError("Failed to export map file");
     } finally {
       setIsExporting(false);
     }
