@@ -204,6 +204,8 @@ export default function Index() {
   >("waypoint");
   const [connectingFrom, setConnectingFrom] = useState<string | null>(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [isImporting, setIsImporting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const addPoint = useCallback(
     (position: [number, number, number]) => {
