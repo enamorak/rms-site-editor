@@ -360,7 +360,7 @@ export default function Index() {
             start: connectingFrom,
             end: pointId,
             type: selectedTool as "lane" | "wall" | "door",
-            graphIndex: selectedTool === "lane" ? 0 : undefined,
+            graphIndex: selectedTool === "lane" ? selectedFleet : undefined,
           };
           setSegments((prev) => {
             const newSegments = [...prev, newSegment];
