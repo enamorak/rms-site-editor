@@ -680,6 +680,40 @@ export default function Index() {
             </CardContent>
           </Card>
 
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm">Fleet Selection</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <div className="text-xs text-muted-foreground mb-2">
+                Active: {fleetNames[selectedFleet]}
+              </div>
+              <div className="grid grid-cols-3 gap-1">
+                {fleetColors.slice(0, 9).map((color, index) => (
+                  <Button
+                    key={index}
+                    size="sm"
+                    variant={selectedFleet === index ? "default" : "outline"}
+                    onClick={() => setSelectedFleet(index)}
+                    className="h-8 text-xs p-1"
+                    style={{
+                      backgroundColor:
+                        selectedFleet === index ? color : undefined,
+                      borderColor: color,
+                    }}
+                  >
+                    {index}
+                  </Button>
+                ))}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {selectedTool === "lane"
+                  ? "Lanes will use this fleet"
+                  : "Select fleet for lanes"}
+              </div>
+            </CardContent>
+          </Card>
+
           {connectingFrom && (
             <Card className="border-primary">
               <CardContent className="pt-4">
