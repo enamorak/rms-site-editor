@@ -612,6 +612,25 @@ export default function Index() {
               </Button>
             </CardContent>
           </Card>
+
+          {error && (
+            <Card className="border-destructive">
+              <CardContent className="pt-4">
+                <div className="flex items-center gap-2 text-destructive text-sm">
+                  <Trash2 className="w-4 h-4" />
+                  {error}
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setError(null)}
+                  className="mt-2 w-full"
+                >
+                  Dismiss
+                </Button>
+              </CardContent>
+            </Card>
+          )}
         </div>
       </div>
 
